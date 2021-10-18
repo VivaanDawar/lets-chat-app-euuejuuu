@@ -1,37 +1,31 @@
-Webcam.set({
-    width: 350,
-    height: 300,
-    image_format: 'png',
-    png_quality: 90
-});
-camera = document.getElementById("camera");
-Webcam.attach("#camera");
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyC5kMZ7wvJpLAT9u7Z8YBKV59XjF-aqqRE",
+    authDomain: "project-93-letschat-web-app-1.firebaseapp.com",
+    databaseURL: "https://project-93-letschat-web-app-1-default-rtdb.firebaseio.com",
+    projectId: "project-93-letschat-web-app-1",
+    storageBucket: "project-93-letschat-web-app-1.appspot.com",
+    messagingSenderId: "599747272052",
+    appId: "1:599747272052:web:04fa716f9c059b29902021"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
 
-function take_snapshot() {
-    Webcam.snap(function(data_uri){
-        document.getElementById("result").innerHTML = '<img id="image_captured" src="'+data_uri+'"/>';
-    });
-};
+    user_name = localStorage.getItem("Username");
+    document.getElementById("welcome_user_name").innerHTML = "Welcome "+user_name+"!";
 
-console.log("ml5 Version: ",ml5.version);
-classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/74JU7cN-E/model.json',modelLoaded);
-
-function modelLoaded() {
-    console.log("Model Loaded Successfully!");
-};
-
-function check() {
-    img = document.getElementById("image_captured");
-    classifier.classify(img, gotResults);
-}
-
-function gotResults(error, results) {
-    if(error) {
-        console.error(error);
+    function addroom() {
+           room_name = document.getElementById("room_name").value;
+  
+          localStorage.setItem("Roomname",room_name);
+      
+          window.location = "kwitter_page.html";
     }
-    else{
-        console.log(results);
-        document.getElementById("result_of_objects").innerHTML = results[0].label;
-        document.getElementById("result_of_accuracy").innerHTML = results[0].confidence.toFixed(3);
-    }
-}
+
+function getData() {firebase.database().ref("/").on('value', function(snapshot) {document.getElementById("output").innerHTML = "";snapshot.forEach(function(childSnapshot) {childKey  = childSnapshot.key;
+     Room_names = childKey;
+    //Start code
+
+    //End code
+    });});}
+getData();
